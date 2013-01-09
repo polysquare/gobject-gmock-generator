@@ -51,10 +51,10 @@ find_library (GMOCK_MAIN_LIBRARY gmock_main)
 if (NOT GTEST_FOUND OR
     NOT GMOCK_LIBRARY OR
     NOT GMOCK_MAIN_LIBRARY)
-    message (FATAL_ERROR "Google Test and Google Mock are required to "
-                         "build gobject-gmock-generator. They are often "
-                         "called libgtest-dev and google-mock in most "
-                         "package managers.")
+    message (SEND_ERROR "Google Test and Google Mock are required to "
+                        "build gobject-gmock-generator. They are often "
+                        "called libgtest-dev and google-mock in most "
+                        "package managers.")
 endif (NOT GTEST_FOUND OR
        NOT GMOCK_LIBRARY OR
        NOT GMOCK_MAIN_LIBRARY)
@@ -63,13 +63,23 @@ find_program (G_IR_SCANNER g-ir-scanner)
 
 if (NOT G_IR_SCANNER)
 
-    message (FATAL_ERROR "g-ir-scanner is required to build "
-                         "gobject-gmock-generator. It is often called "
-                         "gobject-introspection in most package managers.")
+    message (SEND_ERROR "g-ir-scanner is required to build "
+                        "gobject-gmock-generator. It is often called "
+                        "gobject-introspection in most package managers.")
 
 endif (NOT G_IR_SCANNER)
 
 mark_as_advanced (FORCE G_IR_SCANNER)
+
+find_program (XSLTPROC xsltproc)
+
+if (NOT XSLTPROC)
+
+    message (SEND_ERROR "xsltproc is required to build "
+                         "gobject-gmock-generator. It is often called "
+                         "xsltproc in most package managers. ")
+
+endif (NOT XSLTPROC)
 
 pkg_check_modules (GGM REQUIRED ${GGM_REQUIRED})
 
