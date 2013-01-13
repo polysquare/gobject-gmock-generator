@@ -7,6 +7,14 @@ set (GGM_REQUIRED
      glib-2.0
      gobject-2.0)
 
+# Default build type is RelWithDbgInfo
+set (CMAKE_BUILD_TYPE RelWithDbgInfo)
+
+# -fPIC, -Wall and -Werror are mandatory
+set (COMPILER_FLAGS "-fPIC -Wall -Werror")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILER_FLAGS}")
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${COMPILER_FLAGS}")
+
 find_package (GTest QUIET)
 
 if (NOT GTEST_FOUND)
@@ -34,7 +42,7 @@ if (NOT GTEST_FOUND)
         set (GTEST_SRC_DIR ${GTEST_INCLUDE_PREFIX}/src/gtest)
 
         add_subdirectory (${GTEST_SRC_DIR}
-                          ${CMAKE_CURRENT_BINARY_DIR}/src)
+                          ${CMAKE_CURRENT_BINARY_DIR}/src/gtest)
 
         set (GTEST_BOTH_LIBRARIES
              gtest gtest_main)
@@ -65,6 +73,9 @@ if (GGM_FOUND)
 
     set (CMAKE_MODULE_PATH
          ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
+    set (GOBJECT_GMOCK_GENERATOR_INCLUDE_DIR
+         ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
     add_subdirectory (src)
     add_subdirectory (samples)

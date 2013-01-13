@@ -151,8 +151,7 @@ function (generate_gobject_introspection_data gir_name)
                         --output=${CMAKE_CURRENT_BINARY_DIR}/${gir_name}.gir
                         VERBATIM
                         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                        COMMENT "Generating GObject Introspection data "
-                                "${gir_name}.gir"
+                        COMMENT "Create GObjectIntrospection ${gir_name}.gir"
                         DEPENDS ${${gir_name}_SOURCES} ${${gir_name}_LIBRARY})
 
 endfunction (generate_gobject_introspection_data)

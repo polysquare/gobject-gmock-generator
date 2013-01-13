@@ -1,7 +1,8 @@
 include (GObjectIntrospection)
 
 # Include GLib and GObject
-include_directories (${GGM_INCLUDE_DIRS})
+include_directories (${GGM_INCLUDE_DIRS}
+                     $[GOBJECT_GMOCK_GENERATOR_INCLUDE_DIR})
 
 set (_sources
      ${CMAKE_CURRENT_SOURCE_DIR}/sample-interface.c
