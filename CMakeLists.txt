@@ -4,7 +4,8 @@ project (gobject_gmock_generator)
 include (FindPkgConfig)
 
 set (GGM_REQUIRED
-     glib-2.0)
+     glib-2.0
+     gobject-2.0)
 
 find_package (GTest QUIET)
 
@@ -21,7 +22,6 @@ if (NOT GTEST_FOUND)
         string (LENGTH ${GTEST_INCLUDE_BASE} GTEST_INCLUDE_BASE_LENGTH)
         string (LENGTH ${GTEST_INCLUDE_DIR} GTEST_INCLUDE_DIR_LENGTH)
 
-        message (${GTEST_INCLUDE_DIR_LENGTH} ${GTEST_INCLUDE_BASE_LENGTH})
         math (EXPR
               GTEST_INCLUDE_PREFIX_LENGTH
               "${GTEST_INCLUDE_DIR_LENGTH} - ${GTEST_INCLUDE_BASE_LENGTH}")
@@ -59,34 +59,14 @@ endif (NOT GTEST_FOUND OR
        NOT GMOCK_LIBRARY OR
        NOT GMOCK_MAIN_LIBRARY)
 
-find_program (G_IR_SCANNER g-ir-scanner)
-
-if (NOT G_IR_SCANNER)
-
-    message (SEND_ERROR "g-ir-scanner is required to build "
-                        "gobject-gmock-generator. It is often called "
-                        "gobject-introspection in most package managers.")
-
-endif (NOT G_IR_SCANNER)
-
-mark_as_advanced (FORCE G_IR_SCANNER)
-
-find_program (XSLTPROC xsltproc)
-
-if (NOT XSLTPROC)
-
-    message (SEND_ERROR "xsltproc is required to build "
-                         "gobject-gmock-generator. It is often called "
-                         "xsltproc in most package managers. ")
-
-endif (NOT XSLTPROC)
-
 pkg_check_modules (GGM REQUIRED ${GGM_REQUIRED})
 
 if (GGM_FOUND)
 
+    set (CMAKE_MODULE_PATH
+         ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+
+    add_subdirectory (src)
     add_subdirectory (samples)
 
 endif (GGM_FOUND)
-
-    

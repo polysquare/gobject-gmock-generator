@@ -24,7 +24,7 @@
 static void
 ggm_sample_interface_default_init (GGMSampleInterface *interface);
 
-G_DEFINE_INTERFACE (GGMSample, ggm_sample_interface, GGM_TYPE_SAMPLE_INTERFACE);
+G_DEFINE_INTERFACE (GGMSample, ggm_sample_interface, G_TYPE_OBJECT);
 
 static void
 ggm_sample_interface_default_init (GGMSampleInterface *interface)
@@ -65,3 +65,4 @@ ggm_sample_void_function_args (GGMSample *sample, gint *arg1, gint *arg2)
     GGMSampleInterface *interface = GGM_SAMPLE_GET_INTERFACE (sample);
     (*interface->void_function_args) (sample, arg1, arg2);
 }
+
